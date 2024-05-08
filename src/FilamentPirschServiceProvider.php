@@ -2,20 +2,11 @@
 
 namespace Devlogx\FilamentPirsch;
 
-use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
-use Illuminate\Filesystem\Filesystem;
-use Livewire\Features\SupportTesting\Testable;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Devlogx\FilamentPirsch\Commands\FilamentPirschCommand;
-use Devlogx\FilamentPirsch\Testing\TestsFilamentPirsch;
 
 class FilamentPirschServiceProvider extends PackageServiceProvider
 {
@@ -43,7 +34,6 @@ class FilamentPirschServiceProvider extends PackageServiceProvider
         if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
             $package->hasConfigFile();
         }
-
 
         if (file_exists($package->basePath('/../resources/lang'))) {
             $package->hasTranslations();
