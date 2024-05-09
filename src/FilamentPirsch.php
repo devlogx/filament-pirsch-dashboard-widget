@@ -28,7 +28,7 @@ class FilamentPirsch
     {
         $key = 'current-visitors-' . $filter->hash();
 
-        return Cache::remember($key, 500, function () use ($filter) {
+        return Cache::remember($key, config("filament-pirsch-dashboard-widget.cache_time"), function () use ($filter) {
             return $this->client->performGet(PirschClient::ACTIVE_VISITORS_ENDPOINT, $filter)->visitors;
         });
 
@@ -38,7 +38,7 @@ class FilamentPirsch
     {
         $key = 'month-avg-time-' . $filter->hash();
 
-        return Cache::remember($key, 300, function () use ($filter) {
+        return Cache::remember($key, config("filament-pirsch-dashboard-widget.cache_time"), function () use ($filter) {
             $durationDays = $this->client->performGet(PirschClient::SESSION_DURATION_ENDPOINT, $filter);
             $avgTimeArray = array_map(function ($item) {
                 return (int) $item->average_time_spent_seconds;
@@ -57,7 +57,7 @@ class FilamentPirsch
     {
         $key = 'month-visitors-' . $filter->hash();
 
-        return Cache::remember($key, 300, function () use ($filter) {
+        return Cache::remember($key, config("filament-pirsch-dashboard-widget.cache_time"), function () use ($filter) {
             $stats = $this->client->performGet(PirschClient::VISITORS_ENDPOINT, $filter);
             $visitsArray = array_map(function ($item) {
                 return (int) $item->visitors;
@@ -76,7 +76,7 @@ class FilamentPirsch
     {
         $key = 'month-views-' . $filter->hash();
 
-        return Cache::remember($key, 300, function () use ($filter) {
+        return Cache::remember($key, config("filament-pirsch-dashboard-widget.cache_time"), function () use ($filter) {
             $stats = $this->client->performGet(PirschClient::VISITORS_ENDPOINT, $filter);
             $pageViewsArray = array_map(function ($item) {
                 return (int) $item->views;

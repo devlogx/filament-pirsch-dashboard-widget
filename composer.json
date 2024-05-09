@@ -20,9 +20,10 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.1|^8.2|^8.3",
         "filament/filament": "^3.0",
         "malzariey/filament-daterangepicker-filter": "^2.6",
+        "pirsch-analytics/laravel-pirsch": "^0.4.9",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
@@ -39,8 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Devlogx\\FilamentPirsch\\": "src/",
-            "Devlogx\\FilamentPirsch\\Database\\Factories\\": "database/factories/"
+            "Devlogx\\FilamentPirsch\\": "src/"
         }
     },
     "autoload-dev": {
