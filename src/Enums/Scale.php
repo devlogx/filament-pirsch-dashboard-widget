@@ -2,7 +2,7 @@
 
 namespace Devlogx\FilamentPirsch\Enums;
 
-enum Scale:string
+enum Scale: string
 {
     case SCALE_DAY = 'day';
     case SCALE_WEEK = 'week';
