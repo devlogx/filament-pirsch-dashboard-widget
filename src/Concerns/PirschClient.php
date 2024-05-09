@@ -19,6 +19,13 @@ class PirschClient
     const ACTIVE_VISITORS_ENDPOINT = '/api/v1/statistics/active';
 
     const VISITORS_ENDPOINT = '/api/v1/statistics/visitor';
+    const EVENTS_ENDPOINT = '/api/v1/statistics/events';
+    const EVENT_METADATA_ENDPOINT = '/api/v1/statistics/event/meta';
+    const LANGUAGE_ENDPOINT = '/api/v1/statistics/language';
+    const REFERRER_ENDPOINT = '/api/v1/statistics/referrer';
+    const OS_ENDPOINT = '/api/v1/statistics/os';
+    const PLATFORM_ENDPOINT = '/api/v1/statistics/platform';
+    const KEYWORDS_ENDPOINT = '/api/v1/statistics/keywords';
 
     private string $clientID;
 

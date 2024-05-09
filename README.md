@@ -137,6 +137,73 @@ Alternatively if you already have a custom Dashboard, add the `HasFilter` trait 
 ])
 ```
 
+## Using the raw Analytics functions
+You can use the functions for your own widgets. There are plenty more available.
+
+### Get Dashboard link
+```php
+public function getDashboardLink(): string
+{
+    return 'https://' . $this->client->getDomain()->subdomain . '.pirsch.io';
+}
+```
+
+### Defining the Filter
+```php
+use Devlogx\FilamentPirsch\Concerns\Filter;
+
+$filter = (new Filter())
+    ->setFrom(Carbon::now()->subDays(30))
+    ->setTo(Carbon::now())
+    ->setFromTime(Carbon::now()->startOfDay())
+    ->setToTime(Carbon::now()->endOfDay())
+    ->setScale(\Devlogx\FilamentPirsch\Enums\Scale::SCALE_DAY) // can be 'SCALE_DAY', 'SCALE_MONTH', 'SCALE_WEEK' or 'SCALE_YEAR'
+    ->setEvent("name of event")
+    ->setEventMetaKey("meta key");
+```
+
+### Get different data
+```php
+use Devlogx\FilamentPirsch\Facades\FilamentPirsch;
+
+//Get active visitors
+$activeVisitors = FilamentPirsch::activeVisitors($filter,false);
+
+//Get avg session duration
+$sessionDuration = FilamentPirsch::sessionDuration($filter,false);
+
+//Get visitors
+$visitors = FilamentPirsch::visitors($filter,false);
+
+//Get page views
+$views = FilamentPirsch::views($filter,false);
+
+//Get avg time on page
+$timeOnPage = FilamentPirsch::timeOnPage($filter,false);
+
+//Get events
+$events = FilamentPirsch::events($filter,false);
+
+//Get event meta data
+$eventMetaData = FilamentPirsch::eventMetaData($filter,false);
+
+//Get languages
+$languages = FilamentPirsch::languages($filter,false);
+
+//Get referrer listed
+$referrer = FilamentPirsch::referrer($filter,false);
+
+//Get os listed
+$os = FilamentPirsch::os($filter,false);
+
+//Get platforms listed
+$platform = FilamentPirsch::platform($filter,false);
+
+//Get a list of used keywords
+$keywords = FilamentPirsch::keywords($filter,false);
+```
+
+
 ## Testing
 
 ```bash

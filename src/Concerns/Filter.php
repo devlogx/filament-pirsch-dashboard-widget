@@ -3,13 +3,7 @@
 namespace Devlogx\FilamentPirsch\Concerns;
 
 use Carbon\Carbon;
-
-const SCALE_DAY = 'day';
-const SCALE_WEEK = 'week';
-const SCALE_MONTH = 'month';
-const SCALE_YEAR = 'year';
-const CUSTOM_METRIC_TYPE_INTEGER = 'integer';
-const CUSTOM_METRIC_TYPE_FLOAT = 'float';
+use Devlogx\FilamentPirsch\Enums\Scale;
 
 class Filter
 {
@@ -20,72 +14,12 @@ class Filter
     protected Carbon $to;
 
     protected string $tz;
-
     protected Carbon $from_time;
-
     protected Carbon $to_time;
 
-    public $start;
-
-    public $scale;
-
-    public $path;
-
-    public $pattern;
-
-    public $entry_path;
-
-    public $exit_path;
-
-    public $event;
-
-    public $event_meta_key;
-
-    // TODO $meta_...
-    public $language;
-
-    public $country;
-
-    public $city;
-
-    public $referrer;
-
-    public $referrer_name;
-
-    public $os;
-
-    public $browser;
-
-    public $platform;
-
-    public $screen_class;
-
-    public $utm_source;
-
-    public $utm_medium;
-
-    public $utm_campaign;
-
-    public $utm_content;
-
-    public $utm_term;
-
-    // TODO $tag_...
-    public $custom_metric_key;
-
-    public $custom_metric_type;
-
-    public $include_avg_time_on_page;
-
-    public $offset;
-
-    public $limit;
-
-    public $sort;
-
-    public $direction;
-
-    public $search;
+    protected string $event = '';
+    protected string $event_meta_key = '';
+    protected Scale $scale = Scale::SCALE_DAY;
 
     public function __construct()
     {
@@ -94,6 +28,10 @@ class Filter
         $this->to_time = now()->endOfDay();
     }
 
+    /**
+     * Building up the query params for the api call
+     * @return string
+     */
     public function toQuery(): string
     {
         return http_build_query([
@@ -103,46 +41,106 @@ class Filter
             'tz' => $this->tz,
             'from_time' => $this->from_time->format('H:i'),
             'to_time' => $this->to_time->format('H:i'),
+            'event' => $this->event,
+            'event_meta_key' => $this->event_meta_key,
+            'scale' => $this->scale,
         ]);
     }
 
+    /**
+     * Generation a md5 hash out of the filter object for caching.
+     * @return string
+     */
     public function hash(): string
     {
         return md5($this->toQuery());
     }
 
+    /**
+     * The from date filter
+     * @param Carbon $from
+     * @return $this
+     */
     public function setFrom(Carbon $from): Filter
     {
         $this->from = $from;
-
         return $this;
     }
 
-    public function setFromTime(Carbon $from_time): Filter
-    {
-        $this->from_time = $from_time;
-
-        return $this;
-    }
-
-    public function setToTime(Carbon $to_time): Filter
-    {
-        $this->to_time = $to_time;
-
-        return $this;
-    }
-
+    /**
+     * The to date filter
+     * @param Carbon $to
+     * @return $this
+     */
     public function setTo(Carbon $to): Filter
     {
         $this->to = $to;
-
         return $this;
     }
 
+    /**
+     * Sets the start time to group results by minute in the format of Carbon. This only applies if the start and end date (to and from) are equal.
+     * @param Carbon $from_time
+     * @return $this
+     */
+    public function setFromTime(Carbon $from_time): Filter
+    {
+        $this->from_time = $from_time;
+        return $this;
+    }
+
+    /**
+     * Sets the end time to group results by minute in the format of Carbon. This only applies if the start and end date (to and from) are equal.
+     * @param Carbon $to_time
+     * @return $this
+     */
+    public function setToTime(Carbon $to_time): Filter
+    {
+        $this->to_time = $to_time;
+        return $this;
+    }
+
+    /**
+     * The domain ID. Use the list endpoint to get the domain ID for the client. (Default set by PirschClient)
+     * @param string $id
+     * @return $this
+     */
     public function setId(string $id): Filter
     {
         $this->id = $id;
+        return $this;
+    }
 
+    /**
+     * The name of an event to filter for.
+     * @param string $event
+     * @return $this
+     */
+    public function setEvent(string $event): Filter
+    {
+        $this->event = $event;
+        return $this;
+    }
+
+    /**
+     * The event meta key to filter for. This field is used to break down a single event.
+     * @param string $event_meta_key
+     * @return $this
+     */
+    public function setEventMetaKey(string $event_meta_key): Filter
+    {
+        $this->event_meta_key = $event_meta_key;
+        return $this;
+    }
+
+    /**
+     * The scale to group results. Can either be day (default), week, month, or year.
+     * @param Scale $scale
+     * @return $this
+     */
+    public function setScale(Scale $scale): Filter
+    {
+        $this->scale = $scale;
         return $this;
     }
 }
