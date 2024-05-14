@@ -1,4 +1,4 @@
-![FilamentPirschWidget.png](./art/FilamentPirschWidget.png)
+![FilamentPirschWidget.png](https://raw.githubusercontent.com/devlogx/filament-pirsch-dashboard-widget/main/art/FilamentPirschWidget.png)
 # Filament Pirsch Dashboard Widget
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/devlogx/filament-pirsch-dashboard-widget.svg?style=flat-square)](https://packagist.org/packages/devlogx/filament-pirsch-dashboard-widget)
@@ -9,8 +9,8 @@
 This package allows you to integrate a simple analytics dashboard widget for panel.
 
 ## Screenshots
-![filament_pirsch_light.jpg](./art/filament_pirsch_light.jpg)
-![filament_pirsch_dark.jpg](./art/filament_pirsch_dark.jpg)
+![filament_pirsch_light.jpg](https://raw.githubusercontent.com/devlogx/filament-pirsch-dashboard-widget/main/art/filament_pirsch_light.jpg)
+![filament_pirsch_dark.jpg](https://raw.githubusercontent.com/devlogx/filament-pirsch-dashboard-widget/main/art/filament_pirsch_dark.jpg)
 
 ## Installation
 
